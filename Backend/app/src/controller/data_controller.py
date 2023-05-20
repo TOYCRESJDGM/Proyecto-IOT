@@ -23,6 +23,9 @@ class DataCRUD(
     def filter_data_node(self, db: Session , node_id: Any):
         return db.query(self.model_cls).filter(self.model_cls.idnode == node_id).all()
     
+    def filter_data_category(self, db:Session, category: Any):
+        return db.query(self.model_cls).filter(self.model_cls.category == category).all()
+    
     
 # Create a singleton instance of the DataCRUD class
 data = DataCRUD()

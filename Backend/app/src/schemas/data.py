@@ -12,6 +12,7 @@ class DataSchema(BaseModel):
     rot_z = int
     temperature = int
     idnode = int
+    category = str
     creationDate: Optional[datetime]
     ModificationDate: Optional[datetime]
 

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, DateTime, ForeignKey, String
 
 from src.adapters.orm_base import OrmBaseModel
 from sqlalchemy import event
@@ -19,6 +19,7 @@ class Data(OrmBaseModel):
     rot_y = Column(Integer, nullable=True)
     rot_z = Column(Integer, nullable=True)
     temperature = Column(Integer, nullable=True)
+    category = Column(String(100), nullable=True, unique=True)
     idnode = Column(Integer, ForeignKey('node.id'), nullable=False)
     creationDate = Column(DateTime(timezone=True), default=datetime.utcnow)
     ModificationDate = Column(DateTime(timezone=True), default=datetime.utcnow)

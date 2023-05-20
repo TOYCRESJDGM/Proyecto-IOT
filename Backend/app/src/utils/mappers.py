@@ -10,6 +10,7 @@ def mapper_data(data):
         "ac_z": data.ac_z,
         "ac_y": data.ac_y,
         "ac_x": data.ac_x,
+        "category": data.category,
         "creationDate": data.creationDate,
         "node_id": data.idnode,
         "id": data.id

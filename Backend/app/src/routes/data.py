@@ -50,13 +50,39 @@ class DataRouter:
     @router.get("/node/{node_id}")
     def get_data_node_id(self, node_id:int):
         """
-        Get a single user
+        Get a data for node
         :return:
         """
         data_all =  controller.data.filter_data_node(self.db, node_id)
         data_node = []
         
         if len(data_all)>0:
+            for data in data_all:
+                data_node.append(mp.mapper_data(data))
+            response = {
+                "type": "sucess",
+                "message": "data found",
+                "data": data_node
+            }
+        else:
+            response = {
+                "type": "error",
+                "message": "data not found",
+                "data": []
+            }
+        
+        return response
+    
+    @router.get("/{category}")
+    def get_data_category(self, category:str):
+        """
+        Get a data from category
+        :return:
+        """
+        data_all =  controller.data.filter_data_category(self.db, category)
+        data_node = []
+        
+        if data_all and len(data_all) > 0:
             for data in data_all:
                 data_node.append(mp.mapper_data(data))
             response = {
