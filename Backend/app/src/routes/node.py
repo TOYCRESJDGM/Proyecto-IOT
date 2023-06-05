@@ -63,6 +63,28 @@ class NodeRouter:
             }
 
         return response
+
+    @router.get("user/{id}")
+    def get_node(self, id:int):
+        """
+        Get a single node
+        :return:
+        """
+        node =  controller.node.get_by_user_id(self.db, id)
+        if node:
+            response = {
+                "type": "sucess",
+                "message": "data found",
+                "data": mp.mapper_node(node)
+            }
+        else:
+            response = {
+                "type": "error",
+                "message": "data not found",
+                "data": []
+            }
+
+        return response
     
     @router.post("/create")
     def create_node(self, node:schemas.NodeCreate):
