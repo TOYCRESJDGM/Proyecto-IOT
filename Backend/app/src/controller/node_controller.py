@@ -19,7 +19,7 @@ class NodeCRUD(
         super().__init__(models.Node)
     
     def get_by_user_id(self, db: Session ,user_id: Any):
-        return db.query(self.model_cls).filter(self.model_cls.iduser == user_id).first()
+        return db.query(self.model_cls).filter(self.model_cls.iduser == user_id).all()
     
 
 # Create a singleton instance of the NodeCRUD class

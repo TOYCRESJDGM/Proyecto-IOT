@@ -64,18 +64,18 @@ class NodeRouter:
 
         return response
 
-    @router.get("user/{id}")
-    def get_node(self, id:int):
+    @router.get("/user/{user_id}")
+    def get_node_user(self, user_id:int):
         """
-        Get a single node
+        Get a all node for user
         :return:
         """
-        node =  controller.node.get_by_user_id(self.db, id)
-        if node:
+        nodes =  controller.node.get_by_user_id(self.db, user_id)
+        if nodes:
             response = {
-                "type": "sucess",
-                "message": "data found",
-                "data": mp.mapper_node(node)
+                    "type": "success",
+                    "message": "data found",
+                    "data": list(map(mp.mapper_node, nodes))
             }
         else:
             response = {
