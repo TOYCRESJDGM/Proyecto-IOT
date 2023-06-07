@@ -49,7 +49,8 @@ class UserCRUD(
                             "name": user.userName,
                             "id": user.id,
                             "rol": user.rol,
-                            "email": user.email
+                            "email": user.email,
+                            "phone": user.phone
                         }
                     }
                 }

@@ -11,3 +11,5 @@ PyJWT
 cryptography
 bs4
 scikit-learn
+apscheduler
+mysql-connector-python

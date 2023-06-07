@@ -7,6 +7,7 @@ class UserSchema(BaseModel):
     userName: str
     email: str
     rol: str
+    phone: str
     password: str
     creationDate: Optional[datetime]
     ModificationDate: Optional[datetime]

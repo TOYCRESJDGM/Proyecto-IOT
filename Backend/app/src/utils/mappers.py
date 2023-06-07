@@ -1,7 +1,6 @@
 
 
 def mapper_data(data):
-    print(data)
     return {
         "temperature": data.temperature,
         "rot_z": data.rot_z,

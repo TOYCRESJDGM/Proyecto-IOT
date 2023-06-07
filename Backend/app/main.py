@@ -1,7 +1,9 @@
-from src.adapters.mysql_adapter import create_db, drop_db
-from fastapi import FastAPI, HTTPException
+from src.adapters.mysql_adapter import create_db
+from apscheduler.schedulers.background import BackgroundScheduler
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import user, node, data
+from src.utils.cron import Cron
 import uvicorn
 from src.utils.settings import (
     APP_PORT
@@ -62,6 +64,13 @@ app.include_router(
     tags=["data"],
     responses={404: {"description": "Not found"}},
 )
+
+scheduler = BackgroundScheduler()
+# Agregar la tarea repetitiva al Scheduler
+scheduler.add_job(Cron.send_alerts, 'interval', minutes=1)  # Ejecutar cada minuto
+# Iniciar el Scheduler en segundo plano
+scheduler.start()
+# Mantener el programa en ejecución
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000)

@@ -2,8 +2,9 @@
 Adapter for mysql
 """
 
-import json
 from sqlalchemy import create_engine, event
+from datetime import datetime, timedelta
+import mysql.connector
 from sqlalchemy.orm import (
     sessionmaker,
 )  # create a session factory to connect to the database
@@ -88,13 +89,54 @@ async def get_db():
         yield db
 
 
-# def get_db():
-#     """
-#     Get the database session.
-#     :return:
-#     """
-#     try:
-#         db = SessionMaker()
-#         yield db
-#     finally:
-#         db.close()
+def get_db_session():
+    """
+    Get the database session.
+    :return:
+    """
+    try:
+        db = SessionMaker()
+        yield db
+    finally:
+        db.close()
+
+
+# Función que se ejecutará en segundo plano
+def background_task():
+    
+    # Crear la conexión a la base de datos MySQL
+    connection = mysql.connector.connect(
+        host='localhost',
+        user=DB_USER_NAME,
+        password=DB_PASSWORD,
+        database=DB_NAME
+    )
+
+    # Crear un cursor para ejecutar consultas
+    cursor = connection.cursor()
+
+    # Calcular el límite de tiempo hace 5 minutos
+    limit_time = datetime.now() - timedelta(minutes=1)
+
+    # Formatear limit_time en el formato adecuado para MySQL
+    formatted_limit_time = limit_time.strftime('%Y-%m-%d %H:%M:%S')
+
+    category = 'caida'
+
+    # Construir la consulta SQL con parámetros seguros
+    query = 'SELECT d.id as id, d.idnode as node, d.creationDate as date, us.userName as name, us.phone as phone '\
+            'FROM data d '\
+            'LEFT JOIN node nd ON d.idnode = nd.id '\
+            'INNER JOIN user us ON nd.iduser = us.id '\
+            'WHERE d.category = %s AND d.creationDate >= %s'
+        
+    # Ejecutar la consulta SELECT para obtener los IDs de los nodos
+    cursor.execute(query, (category, formatted_limit_time))
+
+    # Obtener los resultados de la consulta
+    results = cursor.fetchall()
+
+    cursor.close()
+    connection.close()
+
+    return results

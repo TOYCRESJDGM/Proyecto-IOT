@@ -50,9 +50,7 @@ class BaseController(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         :return:
         """
         obj_in_data = jsonable_encoder(entity)
-        print(obj_in_data)
         db_obj = self.model_cls(**obj_in_data)
-        print(db_obj)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
@@ -81,7 +79,6 @@ class BaseController(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         :param entity:
         :return:
         """
-        print('**********************CONTROLLER UPDATE****************')
         db_obj = self.get(db, model_id)
         if db_obj is None:
             raise Exception("Object not found")

@@ -17,7 +17,8 @@ def mapper_response(user):
         "userName": user.userName,
         "rol": user.rol,
         "email": user.email,
-        "creationDate": user.creationDate 
+        "creationDate": user.creationDate,
+        "phone": user.phone
     }
     return response
 
