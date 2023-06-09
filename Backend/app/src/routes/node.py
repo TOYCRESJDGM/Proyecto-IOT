@@ -31,7 +31,8 @@ class NodeRouter:
             response = {
                     "type": "success",
                     "message": "data found",
-                    "data": list(map(mp.mapper_node, nodes))
+                    "data": list(map(mp.mapper_node, nodes)),
+                    "total": len(nodes)
             }
         else:
             response = {

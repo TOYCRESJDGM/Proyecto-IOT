@@ -39,7 +39,7 @@ class UserRouter:
             if user:
                 user_mapp = (mapper_response(user))
             else:
-                response = {
+                return {
                     "type": "error",
                     "message": "data not found",
                     "data": []
@@ -54,7 +54,8 @@ class UserRouter:
         response = {
                 "type": "success",
                 "message": "data found",
-                "data": user_mapp
+                "data": user_mapp,
+                "total": len(users)
         }
 
         return response

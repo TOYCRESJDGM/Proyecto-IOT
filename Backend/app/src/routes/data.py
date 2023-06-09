@@ -35,7 +35,8 @@ class DataRouter:
             response = {
                 "type": "sucess",
                 "message": "data found",
-                "data": list(map(mp.mapper_data, data))
+                "data": list(map(mp.mapper_data, data)),
+                "total": len(data)
             }
         else:
             response = {
