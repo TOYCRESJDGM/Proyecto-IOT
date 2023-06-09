@@ -1,6 +1,6 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getCustomers, getData } from "../../API";
+import { getUsers, getData } from "../../API";
 
 function Customers() {
   const [loading, setLoading] = useState(false);
@@ -8,15 +8,15 @@ function Customers() {
 
   useEffect(() => {
     setLoading(true);
-    getCustomers().then((res) => {
-      setDataSource(res.users);
+    getUsers().then((res) => {
+      setDataSource(res.data);
       setLoading(false);
     });
   }, []);
 
   return (
     <Space size={20} direction="vertical">
-      <Typography.Title level={4}>Customers</Typography.Title>
+      <Typography.Title level={3}>Page / Customers</Typography.Title>
       <Table
         loading={loading}
         columns={[
@@ -28,32 +28,31 @@ function Customers() {
             },
           },
           {
-            title: "First Name",
-            dataIndex: "firstName",
+            title: "ID",
+            dataIndex: "id",
           },
           {
-            title: "LastName",
-            dataIndex: "lastName",
+            title: "Nombre",
+            dataIndex: "userName",
           },
           {
             title: "Email",
             dataIndex: "email",
           },
           {
-            title: "Phone",
-            dataIndex: "phone",
+            title: "Rol",
+            dataIndex: "rol",
           },
-
           {
-            title: "address",
-            dataIndex: "address",
-            render: (address) => {
-              return (
-                <span>
-                  {address.address}, {address.city}
-                </span>
-              );
+            title: "Telefono",
+            dataIndex: "phone",
+            render: (phone) => {
+              return '+' + phone;
             },
+          },
+          {
+            title: "Fecha",
+            dataIndex: "creationDate",
           },
         ]}
         dataSource={dataSource}

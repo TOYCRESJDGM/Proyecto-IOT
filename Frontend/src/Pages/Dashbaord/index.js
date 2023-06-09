@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography, Switch } from "antd";
 import { useEffect, useState } from "react";
-import { getData, getOrders, getRevenue, getAllNode, getUsers } from "../../API";
+import { getData, getAllNode, getUsers } from "../../API";
 
 import {
   Chart as ChartJS,
@@ -55,8 +55,8 @@ function Dashboard() {
           icon={
             <AimOutlined
               style={{
-                color: "green",
-                backgroundColor: "rgba(0,255,0,0.25)",
+                color: "white",
+                backgroundColor: "rgb(56, 104, 106)",
                 borderRadius: 20,
                 fontSize: 24,
                 padding: 8,
@@ -70,8 +70,8 @@ function Dashboard() {
           icon={
             <ContainerOutlined
               style={{
-                color: "blue",
-                backgroundColor: "rgba(0,0,255,0.25)",
+                color: "white",
+                backgroundColor: "rgb(56, 104, 106)",
                 borderRadius: 20,
                 fontSize: 24,
                 padding: 8,
@@ -85,8 +85,8 @@ function Dashboard() {
           icon={
             <UserOutlined
               style={{
-                color: "purple",
-                backgroundColor: "rgba(0,255,255,0.25)",
+                color: "white",
+                backgroundColor: "rgb(56, 104, 106)",
                 borderRadius: 20,
                 fontSize: 24,
                 padding: 8,
@@ -100,8 +100,8 @@ function Dashboard() {
           icon={
             <DollarCircleOutlined
               style={{
-                color: "red",
-                backgroundColor: "rgba(255,0,0,0.25)",
+                color: "white",
+                backgroundColor: "rgb(56, 104, 106)",
                 borderRadius: 20,
                 fontSize: 24,
                 padding: 8,
@@ -279,7 +279,7 @@ function DashboardChart() {
           {
             label: "Categoría",
             data: recordsByCategory,
-            backgroundColor: "rgba(255, 0, 0, 1)",
+            backgroundColor: "rgb(24, 119, 149)",
           },
         ],
       };

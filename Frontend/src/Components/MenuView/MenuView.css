@@ -43,11 +43,3 @@
 .PageContent {
     padding-left: 12px;
 }
-
-.ContentWrapper {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 12px;
-    background-color: #FFF;
-  }

@@ -1,41 +1,26 @@
-import { BellFilled, MailOutlined } from "@ant-design/icons";
+import { BellFilled, UserSwitchOutlined } from "@ant-design/icons";
 import { Badge, Drawer, Image, List, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getComments, getOrders } from "../../API";
+import { getData } from "../../API";
 
 
 function AppHeader() {
-  const [comments, setComments] = useState([]);
-  const [orders, setOrders] = useState([]);
-  const [commentsOpen, setCommentsOpen] = useState(false);
+  const [data, setData] = useState([]);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    getComments().then((res) => {
-      setComments(res.comments);
-    });
-    getOrders().then((res) => {
-      setOrders(res.products);
+    getData().then((res) => {
+      setData(res.data);
+      setFilteredData(res.data.filter((item) => item.category === 'caida'));
     });
   }, []);
 
   return (
     <div className="AppHeader">
-      <Image
-        width={40}
-        src="../../assets/img/logo2.jpg"
-      ></Image>
-      <Typography.Title>Aamir's Dashboard</Typography.Title>
+      <Image src='../../../public/logo2.jpg' />
       <Space>
-        <Badge count={comments.length} dot>
-          <MailOutlined
-            style={{ fontSize: 24 }}
-            onClick={() => {
-              setCommentsOpen(true);
-            }}
-          />
-        </Badge>
-        <Badge count={orders.length}>
+        <Badge count={filteredData.length}>
           <BellFilled
             style={{ fontSize: 24 }}
             onClick={() => {
@@ -43,22 +28,14 @@ function AppHeader() {
             }}
           />
         </Badge>
+        <Badge>
+          <UserSwitchOutlined
+            style={{ fontSize: 24 }}
+            onClick={() => {
+            }}
+          />
+        </Badge>
       </Space>
-      <Drawer
-        title="Comments"
-        open={commentsOpen}
-        onClose={() => {
-          setCommentsOpen(false);
-        }}
-        maskClosable
-      >
-        <List
-          dataSource={comments}
-          renderItem={(item) => {
-            return <List.Item>{item.body}</List.Item>;
-          }}
-        ></List>
-      </Drawer>
       <Drawer
         title="Notifications"
         open={notificationsOpen}
@@ -68,14 +45,17 @@ function AppHeader() {
         maskClosable
       >
         <List
-          dataSource={orders}
+          dataSource={data}
           renderItem={(item) => {
-            return (
-              <List.Item>
-                <Typography.Text strong>{item.title}</Typography.Text> has been
-                ordered!
-              </List.Item>
-            );
+            if (item.category === 'caida') {
+              return (
+                <List.Item>
+                  <Typography.Text strong>Registro de Evento de posible caida </Typography.Text> para el nodo {item.node_id} (ID : {item.id}) el {item.creationDate}
+                </List.Item>
+              );
+            } else {
+              return null; // No hacer nada si no es la categoría de caída
+            }
           }}
         ></List>
       </Drawer>

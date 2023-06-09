@@ -44,7 +44,7 @@ function Inventory() {
     <Space size={20} direction="vertical">
       <Typography.Title level={3}>Page / Data</Typography.Title>
       <Select
-        style={{ width: 200 }}
+        style={{ width: 20 }}
         placeholder="Seleccionar nodo"
         onChange={handleNodeChange}
         allowClear
